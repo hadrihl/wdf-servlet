@@ -43,7 +43,7 @@
   </servlet>	
   <servlet-mapping>
   	<servlet-name>dashboard</servlet-name>
-  	<url-pattern>/dashboard</url-pattern>
+  	<url-pattern>/home</url-pattern>
   </servlet-mapping>
   
   <servlet>

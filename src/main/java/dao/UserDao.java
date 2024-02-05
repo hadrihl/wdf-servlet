@@ -13,4 +13,8 @@ public interface UserDao {
 	public User getUserByToken(String token);
 	
 	public void requestOTP(String email);
+	
+	public User login(String email, String password);
+	
+	public void loginOTP(String email, String token);
 }

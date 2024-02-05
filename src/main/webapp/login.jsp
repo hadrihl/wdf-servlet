@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Login</h1>
-	<form>
+	<form action="login" method="post">
 		<div class="form-group" style="margin-bottom: 10px;">
 			<label for="email"></label>
 			<input type="email" id="email" name="email" placeholder="Enter email" autocomplete="off" required />

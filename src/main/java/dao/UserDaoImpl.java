@@ -110,5 +110,54 @@ public class UserDaoImpl implements UserDao {
 		
 		sendTokenConfirmationEmail(email, token);
 	}
+	
+	@Override
+	public void loginOTP(String email, String token) {
+		String sql = "UPDATE user SET token = ? WHERE email = ?";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setString(1, token);
+				statement.setString(2, email);
+				
+				statement.executeUpdate();
+				
+				String content = "Enter your OTP (" + token + ") to login into WDF-Servlet portal.";
+				
+				try {
+					EmailSender.sendEmail(email, "WDF-Servlet - Login OTP", content);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public User login(String email, String password) {
+		String sql = "SELECT username, email FROM user WHERE password = ?";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, password);
+			ResultSet resultSet = statement.executeQuery();
+			
+			if(resultSet.next()) {
+				User user = new User();
+				user.setUsername(resultSet.getString("username"));
+				user.setEmail(resultSet.getString("email"));
+		
+				return user;
+				
+			} 
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return null;
+	}
+
+
 
 }
