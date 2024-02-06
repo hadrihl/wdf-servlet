@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.User;
 
 public interface UserDao {
@@ -21,4 +23,8 @@ public interface UserDao {
 	public User getUserByUsername(String username);
 	
 	public User updateProfile(User user);
+	
+	public List<User> getUsersByKeyword(String keyword);
+	
+	public List<User> getAllUsers();
 }

@@ -51,11 +51,18 @@
 		</c:if>
 		
 		<div class="form-group" style="margin-top: 20px; margin-bottom: 10px;">
-			<button><a href="/wdf-servlet/update">Cancel</a></button>
+			<a href="/wdf-servlet/update"><button type="button">Cancel</button></a>
 			<button type="submit">Update</button>
 		</div>
 	</form>
 	</c:if>
+	
+	<div class="link" style="margin-top: 50px; margin-bottom: 10px;">
+		<a href="/wdf-servlet/home">Dashboard</a>
+	</div>
+	<div class="link" style="margin-top: 10px; margin-bottom: 10px;">
+		<a href="/wdf-servlet/logout">Logout</a>
+	</div>
 	
 	<footer style="margin-top:20px;"><a href="/wdf-servlet">WDF-Servlet</a> &copy; 2024. All right reserved.</footer>
 </body>

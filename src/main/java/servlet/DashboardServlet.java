@@ -20,7 +20,6 @@ public class DashboardServlet extends HttpServlet {
 			resp.sendRedirect("/wdf-servlet/login");
 			
 		} else {
-			System.err.println("loggedinuser: " + session.getAttribute("loggedinuser").toString());
 			req.setAttribute("username", session.getAttribute("loggedinuser").toString());
 			RequestDispatcher dispatcher = req.getRequestDispatcher("dashboard.jsp");
 			dispatcher.forward(req, resp);

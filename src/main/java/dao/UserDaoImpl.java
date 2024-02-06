@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.mail.MessagingException;
+
+import com.mysql.cj.protocol.ResultStreamer;
+import com.mysql.cj.protocol.Resultset;
 
 import entity.User;
 import utility.DBConnection;
@@ -202,6 +207,80 @@ public class UserDaoImpl implements UserDao {
 			statement.executeUpdate();
 			
 			return user;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<User> getUsersByKeyword(String keyword) {
+		String sql = "SELECT * FROM user WHERE user.username = ? OR "
+				+ "user.email = ? OR "
+				+ "user.firstname = ? OR "
+				+ "user.lastname = ? OR "
+				+ "user.company = ? OR "
+				+ "user.city = ? OR "
+				+ "user.country = ?";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, keyword);
+			statement.setString(2, keyword);
+			statement.setString(3, keyword);
+			statement.setString(4, keyword);
+			statement.setString(5, keyword);
+			statement.setString(6, keyword);
+			statement.setString(7, keyword);
+			
+			ResultSet resultSet = statement.executeQuery();
+			List<User> users = new ArrayList<User>();
+			
+			while(resultSet.next()) {
+				User user = new User();
+				user.setUsername(resultSet.getString("username"));
+				user.setEmail(resultSet.getString("email"));
+				user.setFirstname(resultSet.getString("firstname"));
+				user.setLastname(resultSet.getString("lastname"));
+				user.setCompany(resultSet.getString("company"));
+				user.setCity(resultSet.getString("city"));
+				user.setCountry(resultSet.getString("country"));
+				users.add(user);
+			}
+			
+			return users;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		String sql = "SELECT * FROM user";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql);
+				ResultSet resultSet = statement.executeQuery()) {
+			
+			List<User> users = new ArrayList<User>();
+			while(resultSet.next()) {
+				User user = new User();
+				user.setUsername(resultSet.getString("username"));
+				user.setEmail(resultSet.getString("email"));
+				user.setFirstname(resultSet.getString("firstname"));
+				user.setLastname(resultSet.getString("lastname"));
+				user.setCompany(resultSet.getString("company"));
+				user.setCity(resultSet.getString("city"));
+				user.setCountry(resultSet.getString("country"));
+				users.add(user);
+			}
+			
+			return users;
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

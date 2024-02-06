@@ -25,7 +25,7 @@
 		<a href="/wdf-servlet/profile">Profile</a>
 	</div>
 	
-	<div class="link" style="margin-top: 30px; margin-bottom: 10px;">
+	<div class="link" style="margin-top: 50px; margin-bottom: 10px;">
 		<a href="/wdf-servlet/home">Dashboard</a>
 	</div>
 	<div class="link" style="margin-top: 10px; margin-bottom: 10px;">
