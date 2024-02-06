@@ -23,21 +23,19 @@ public class ProfileServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		String username = session.getAttribute("loggedinuser").toString();
 		
 		if(session == null || session.getAttribute("loggedinuser") == null) {
-			session.invalidate();
 			resp.sendRedirect("/wdf-servlet");
 			
 		} else {
-			User user = userDaoImpl.getUserByUsername(username);
+			User user = userDaoImpl.getUserByUsername(session.getAttribute("loggedinuser").toString());
 			
 			if(user == null) {
 				req.setAttribute("errmsg", "Ops! Can't retrieve user's information at the moment.");
 				RequestDispatcher dispatcher = req.getRequestDispatcher("profile.jsp");
 				dispatcher.forward(req, resp);
 			} else {
-				req.setAttribute("loggedinuser", username);
+				req.setAttribute("loggedinuser", session.getAttribute("loggedinuser").toString());
 				req.setAttribute("user", user);
 				RequestDispatcher dispatcher = req.getRequestDispatcher("profile.jsp");
 				dispatcher.forward(req, resp);

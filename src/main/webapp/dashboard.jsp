@@ -7,7 +7,7 @@
 <title>Dashboard</title>
 </head>
 <body>
-	<h1>Welcome, ${username}!</h1>
+	<h1>Welcome, ${loggedinuser}!</h1>
 	
 	<div class="container" style="margin-top: 2px; margin-bottom: 10px;">
 		<a href="/wdf-servlet/update">Update profile</a>

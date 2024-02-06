@@ -23,13 +23,11 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		if(session == null || session.getAttribute("username") == null) {
+		if(session == null || session.getAttribute("loggedinuser") == null) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
 			dispatcher.forward(req, resp);
 		} else {
-			req.setAttribute("username", session.getAttribute("username").toString());
-			RequestDispatcher dispatcher = req.getRequestDispatcher("dashboard.jsp");
-			dispatcher.forward(req, resp);
+			resp.sendRedirect("/wdf-servlet/home");
 		}
 	}
 	
