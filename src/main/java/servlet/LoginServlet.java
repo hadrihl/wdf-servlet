@@ -48,12 +48,12 @@ public class LoginServlet extends HttpServlet {
 			
 		} else {
 			//send otp
-			userDaoImpl.loginOTP(email, OTPGenerator.generate());
+			//userDaoImpl.loginOTP(email, OTPGenerator.generate());
 			
 			HttpSession session = req.getSession(true);
-			session.setAttribute("username", user.getUsername());
+			session.setAttribute("loggedinuser", user.getUsername());
 			session.setAttribute("email", email);
-			resp.sendRedirect("/wdf-servlet/2fa");
+			resp.sendRedirect("/wdf-servlet/home");
 			
 		}
 	}

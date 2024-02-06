@@ -158,6 +158,57 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@Override
+	public User getUserByUsername(String username) {
+		String sql = "SELECT * FROM user WHERE username = ?";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, username);
+			ResultSet resultSet = statement.executeQuery();
+			
+			if(resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getLong("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setFirstname(resultSet.getString("firstname"));
+				user.setLastname(resultSet.getString("lastname"));
+				user.setCompany(resultSet.getString("company"));
+				user.setCity(resultSet.getString("city"));
+				user.setCountry(resultSet.getString("country"));
+				return user;
+				
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User updateProfile(User user) {
+		String sql = "UPDATE user SET firstname = ?, lastname = ?, company = ?, city = ?, country = ? WHERE username = ?";
+		
+		try(Connection connection = DBConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setString(1, user.getFirstname());
+			statement.setString(2, user.getLastname());
+			statement.setString(3, user.getCompany());
+			statement.setString(4, user.getCity());
+			statement.setString(5, user.getCountry());
+			statement.setString(6, user.getUsername());
+			
+			statement.executeUpdate();
+			
+			return user;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 
 
 }
